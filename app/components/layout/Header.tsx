@@ -16,9 +16,11 @@ export const Header = () => {
                     <span className="text-xl font-bold tracking-tight text-primary">SHOP</span>
                 </Link>
 
-                {/* Desktop Navigation */}
                 <nav className="hidden md:flex items-center space-x-6 text-sm font-medium">
                     <Link to="/products" className="transition-colors hover:text-primary">Products</Link>
+                    {user && (
+                        <Link to="/orders" className="transition-colors hover:text-primary">Orders</Link>
+                    )}
                     {user?.role === "ADMIN" && (
                         <Link to="/admin/dashboard" className="transition-colors hover:text-primary">Admin</Link>
                     )}
@@ -66,6 +68,9 @@ export const Header = () => {
             {isMenuOpen && (
                 <div className="md:hidden border-t bg-background px-4 py-4 space-y-4">
                     <Link to="/products" className="block text-sm font-medium" onClick={() => setIsMenuOpen(false)}>Products</Link>
+                    {user && (
+                        <Link to="/orders" className="block text-sm font-medium" onClick={() => setIsMenuOpen(false)}>Orders</Link>
+                    )}
                     {user?.role === "ADMIN" && (
                         <Link to="/admin/dashboard" className="block text-sm font-medium" onClick={() => setIsMenuOpen(false)}>Admin</Link>
                     )}

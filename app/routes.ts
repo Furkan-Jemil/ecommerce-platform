@@ -10,8 +10,15 @@ export default [
     route("products/:productId", "routes/products/$productId.tsx"),
     route("cart", "routes/cart.tsx"),
 
+    // Checkout & Orders
+    route("checkout", "routes/checkout.tsx"),
+
     // Protected Routes
     layout("components/layout/ProtectedRoute.tsx", [
         route("profile", "routes/profile.tsx"),
+        route("orders", "routes/orders/_index.tsx"),
+        route("orders/:orderId", "routes/orders/$orderId.tsx"),
+        route("orders/confirmation/:orderId", "routes/orders/confirmation.$orderId.tsx"),
     ]),
 ] satisfies RouteConfig;
+

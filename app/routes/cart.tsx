@@ -13,13 +13,16 @@ export default function Cart() {
     const { items: localItems, removeItem: removeLocal, updateQuantity: updateLocal } = useCartStore();
 
     // Choose source based on auth status
-    const items = user ? serverItems.map(si => ({
-        productId: si.productId,
-        quantity: si.quantity,
-        name: si.product.name,
-        price: si.product.price,
-        imageUrl: si.product.imageUrl || undefined
-    })) : localItems;
+    const items = user
+        ? serverItems.map((si) => ({
+            productId: si.productId,
+            quantity: si.quantity,
+            name: si.product.name,
+            price: si.product.price,
+            imageUrl: si.product.imageUrl || undefined,
+        }))
+        : localItems;
+
 
     const subtotal = items.reduce((sum, item) => sum + Number(item.price) * item.quantity, 0);
 
