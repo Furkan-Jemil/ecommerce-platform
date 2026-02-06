@@ -13,18 +13,20 @@ export default function ProductListing() {
     });
 
     return (
-        <div className="container mx-auto px-4 py-8">
-            <h1 className="text-3xl font-bold tracking-tight mb-8">All Products</h1>
-            <div className="flex flex-col lg:flex-row lg:space-x-8 space-y-8 lg:space-y-0 text-foreground">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-12">
+            <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
+                <div>
+                    <h1 className="text-4xl font-extrabold tracking-tight text-foreground sm:text-5xl">Explore Our Collection</h1>
+                    <p className="mt-4 text-lg text-muted-foreground max-w-2xl">Discover high-quality products curated just for you. From tech to fashion, find what fits your lifestyle.</p>
+                </div>
                 <ProductFilters
                     onSearch={setSearch}
                     onCategoryChange={setCategory}
                     currentCategory={category}
                 />
-                <div className="flex-1">
-                    <ProductGrid products={products} isLoading={isLoading} />
-                </div>
             </div>
+
+            <ProductGrid products={products} isLoading={isLoading} />
         </div>
     );
 }

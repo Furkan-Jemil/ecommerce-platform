@@ -1,5 +1,5 @@
 import { Navigate, Outlet, useLocation } from "react-router";
-import { useAuth } from "../lib/hooks/useAuth";
+import { useAuth } from "../../lib/hooks/useAuth";
 
 interface ProtectedRouteProps {
     adminOnly?: boolean;
