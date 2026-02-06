@@ -15,7 +15,7 @@ export default function AdminLayout() {
     return (
         <div className="flex min-h-screen bg-muted/30">
             {/* Sidebar */}
-            <aside className="w-64 border-r bg-card hidden md:block">
+            <aside className="w-72 border-r bg-card hidden lg:block fixed inset-y-0 z-50 shadow-sm">
                 <div className="p-6">
                     <Link to="/" className="flex items-center space-x-2 text-primary">
                         <ArrowLeft className="h-4 w-4" />
@@ -43,8 +43,10 @@ export default function AdminLayout() {
             </aside>
 
             {/* Main Content */}
-            <main className="flex-1 overflow-y-auto p-8">
-                <Outlet />
+            <main className="flex-1 overflow-y-auto p-4 sm:p-8 lg:pl-80">
+                <div className="max-w-7xl mx-auto">
+                    <Outlet />
+                </div>
             </main>
         </div>
     );

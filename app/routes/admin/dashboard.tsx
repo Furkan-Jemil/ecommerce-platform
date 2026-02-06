@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
-import { fetchProducts } from "../../lib/api/products";
-import { fetchOrders } from "../../lib/api/orders";
+import { fetchProducts, type Product } from "../../lib/api/products";
+import { fetchOrders, type Order } from "../../lib/api/orders";
 import { Package, ShoppingBag, DollarSign, TrendingUp } from "lucide-react";
 
 export default function AdminDashboard() {
@@ -13,12 +13,12 @@ export default function AdminDashboard() {
         }
     });
 
-    const totalRevenue = orders.reduce((sum, order) => sum + Number(order.totalPrice), 0);
-    const totalSales = orders.filter(o => o.status === "DELIVERED").length;
+    const totalRevenue = orders.reduce((sum: number, order: Order) => sum + Number(order.totalPrice), 0);
+    const totalSales = orders.filter((o: Order) => o.status === "DELIVERED").length;
 
     const stats = [
         { label: "Total Revenue", value: `$${totalRevenue.toFixed(2)}`, icon: DollarSign, color: "text-green-600", bg: "bg-green-100" },
-        { label: "Active Orders", value: orders.filter(o => o.status === "PENDING").length, icon: ShoppingBag, color: "text-blue-600", bg: "bg-blue-100" },
+        { label: "Active Orders", value: orders.filter((o: Order) => o.status === "PENDING").length, icon: ShoppingBag, color: "text-blue-600", bg: "bg-blue-100" },
         { label: "Total Products", value: products.length, icon: Package, color: "text-purple-600", bg: "bg-purple-100" },
         { label: "Sales Growth", value: "+12.5%", icon: TrendingUp, color: "text-orange-600", bg: "bg-orange-100" },
     ];
@@ -54,7 +54,7 @@ export default function AdminDashboard() {
                 <div className="rounded-xl border bg-card p-6 shadow-sm">
                     <h3 className="text-lg font-bold mb-4">Recent Activity</h3>
                     <div className="space-y-4">
-                        {orders.slice(0, 5).map(order => (
+                        {orders.slice(0, 5).map((order: Order) => (
                             <div key={order.id} className="flex items-center justify-between border-b pb-2 last:border-0">
                                 <span className="text-sm font-mono">#{order.id.slice(-6)}</span>
                                 <span className="text-sm font-bold">${order.totalPrice}</span>
@@ -68,7 +68,7 @@ export default function AdminDashboard() {
                 <div className="rounded-xl border bg-card p-6 shadow-sm">
                     <h3 className="text-lg font-bold mb-4">Inventory Alerts</h3>
                     <div className="space-y-4">
-                        {products.filter(p => p.stock < 10).map(p => (
+                        {products.filter((p: Product) => p.stock < 10).map((p: Product) => (
                             <div key={p.id} className="flex items-center justify-between border-b pb-2 last:border-0 text-destructive">
                                 <span className="text-sm font-medium">{p.name}</span>
                                 <span className="text-sm font-bold">Only {p.stock} left</span>

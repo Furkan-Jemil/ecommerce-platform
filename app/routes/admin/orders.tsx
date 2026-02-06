@@ -1,6 +1,6 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { fetchOrders } from "../../../lib/api/orders";
-import { apiClient } from "../../../lib/api/client";
+import { fetchOrders, type Order } from "../../lib/api/orders";
+import { apiClient } from "../../lib/api/client";
 import { ShoppingBag, Search, Eye, MoreHorizontal } from "lucide-react";
 import { useState } from "react";
 import { Link } from "react-router";
@@ -17,10 +17,27 @@ export default function AdminOrders() {
     const updateStatusMutation = useMutation({
         mutationFn: ({ id, status }: { id: string; status: string }) =>
             apiClient.put(`/orders/${id}/status`, { status }),
-        onSuccess: () => queryClient.invalidateQueries({ queryKey: ["orders-admin-all"] }),
+        onMutate: async ({ id, status }) => {
+            await queryClient.cancelQueries({ queryKey: ["orders-admin-all"] });
+            const previousOrders = queryClient.getQueryData<Order[]>(["orders-admin-all"]);
+            if (previousOrders) {
+                queryClient.setQueryData<Order[]>(["orders-admin-all"],
+                    previousOrders.map(o => o.id === id ? { ...o, status } : o)
+                );
+            }
+            return { previousOrders };
+        },
+        onError: (err, variables, context) => {
+            if (context?.previousOrders) {
+                queryClient.setQueryData(["orders-admin-all"], context.previousOrders);
+            }
+        },
+        onSettled: () => {
+            queryClient.invalidateQueries({ queryKey: ["orders-admin-all"] });
+        },
     });
 
-    const filteredOrders = orders.filter(o =>
+    const filteredOrders = orders.filter((o: Order) =>
         o.id.toLowerCase().includes(searchTerm.toLowerCase()) ||
         o.status.toLowerCase().includes(searchTerm.toLowerCase())
     );

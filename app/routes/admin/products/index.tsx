@@ -4,6 +4,7 @@ import { fetchProducts } from "../../../lib/api/products";
 import { apiClient } from "../../../lib/api/client";
 import { Plus, Edit2, Trash2, Package, Search, ExternalLink } from "lucide-react";
 import { useState } from "react";
+import type { Product } from "../../../lib/api/products";
 
 export default function AdminProducts() {
     const navigate = useNavigate();
@@ -17,10 +18,27 @@ export default function AdminProducts() {
 
     const deleteMutation = useMutation({
         mutationFn: (id: string) => apiClient.delete(`/products/${id}`),
-        onSuccess: () => queryClient.invalidateQueries({ queryKey: ["products-admin"] }),
+        onMutate: async (id) => {
+            await queryClient.cancelQueries({ queryKey: ["products-admin"] });
+            const previousProducts = queryClient.getQueryData<Product[]>(["products-admin"]);
+            if (previousProducts) {
+                queryClient.setQueryData<Product[]>(["products-admin"],
+                    previousProducts.filter(p => p.id !== id)
+                );
+            }
+            return { previousProducts };
+        },
+        onError: (err, id, context) => {
+            if (context?.previousProducts) {
+                queryClient.setQueryData(["products-admin"], context.previousProducts);
+            }
+        },
+        onSettled: () => {
+            queryClient.invalidateQueries({ queryKey: ["products-admin"] });
+        },
     });
 
-    const filteredProducts = products.filter(p =>
+    const filteredProducts = products.filter((p: Product) =>
         p.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
         p.category?.toLowerCase().includes(searchTerm.toLowerCase())
     );
@@ -81,7 +99,7 @@ export default function AdminProducts() {
                             <tr>
                                 <td colSpan={5} className="px-6 py-12 text-center text-muted-foreground italic">No products found matching your search.</td>
                             </tr>
-                        ) : filteredProducts.map((product) => (
+                        ) : filteredProducts.map((product: Product) => (
                             <tr key={product.id} className="hover:bg-muted/30 transition-colors group">
                                 <td className="px-6 py-4">
                                     <div className="flex items-center space-x-3 text-foreground">
