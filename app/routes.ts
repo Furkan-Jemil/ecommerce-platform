@@ -19,6 +19,19 @@ export default [
         route("orders", "routes/orders/_index.tsx"),
         route("orders/:orderId", "routes/orders/$orderId.tsx"),
         route("orders/confirmation/:orderId", "routes/orders/confirmation.$orderId.tsx"),
+
+        // Admin Portal
+        layout("routes/admin/layout.tsx", [
+            route("admin/dashboard", "routes/admin/dashboard.tsx"),
+            route("admin/products", "routes/admin/products/index.tsx"),
+            route("admin/products/new", "routes/admin/products/new.tsx"),
+            route("admin/orders", "routes/admin/orders.tsx"),
+            // Analytics placeholder
+            route("admin/analytics", "routes/admin/dashboard.tsx"),
+            // Users placeholder
+            route("admin/users", "routes/admin/dashboard.tsx"),
+        ]),
     ]),
 ] satisfies RouteConfig;
+
 
