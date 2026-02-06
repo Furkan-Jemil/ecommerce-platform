@@ -3,6 +3,7 @@ import { useProduct } from "../../lib/hooks/useProducts";
 import { ShoppingCart, ArrowLeft, ShieldCheck, Truck, RotateCcw } from "lucide-react";
 import { useCartStore } from "../../store/cartStore";
 import { useState } from "react";
+import { getOptimizedImageUrl } from "../../lib/utils/image-optimization";
 
 export default function ProductDetail() {
     const { productId } = useParams<{ productId: string }>();

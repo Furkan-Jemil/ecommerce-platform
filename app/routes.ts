@@ -27,9 +27,9 @@ export default [
             route("admin/products/new", "routes/admin/products/new.tsx"),
             route("admin/orders", "routes/admin/orders.tsx"),
             // Analytics placeholder
-            route("admin/analytics", "routes/admin/dashboard.tsx"),
+            route("admin/analytics", "routes/admin/dashboard.tsx", { id: "admin-analytics" }),
             // Users placeholder
-            route("admin/users", "routes/admin/dashboard.tsx"),
+            route("admin/users", "routes/admin/dashboard.tsx", { id: "admin-users" }),
         ]),
     ]),
 ] satisfies RouteConfig;
