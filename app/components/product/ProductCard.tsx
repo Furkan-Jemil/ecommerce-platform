@@ -2,6 +2,7 @@ import { Link } from "react-router";
 import type { Product } from "../../lib/api/products";
 import { ShoppingCart } from "lucide-react";
 import { useCartStore } from "../../store/cartStore";
+import { getOptimizedImageUrl } from "../../lib/utils/image-optimization";
 
 interface ProductCardProps {
     product: Product;
@@ -14,7 +15,7 @@ export const ProductCard = ({ product }: ProductCardProps) => {
         <div className="group relative flex flex-col overflow-hidden rounded-lg border bg-card transition-all hover:shadow-md">
             <Link to={`/products/${product.id}`} className="aspect-h-1 aspect-w-1 sm:aspect-none h-64 overflow-hidden">
                 <img
-                    src={product.imageUrl || "/placeholder-product.png"}
+                    src={getOptimizedImageUrl(product.imageUrl, { width: 400, height: 400 })}
                     alt={product.name}
                     className="h-full w-full object-cover object-center transition-transform duration-300 group-hover:scale-105"
                 />
