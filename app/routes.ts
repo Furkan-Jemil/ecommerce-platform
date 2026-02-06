@@ -32,6 +32,9 @@ export default [
             route("admin/users", "routes/admin/dashboard.tsx", { id: "admin-users" }),
         ]),
     ]),
+
+    // API Bridge for BetterAuth
+    route("api/auth/*", "routes/api.auth.ts"),
 ] satisfies RouteConfig;
 
 
