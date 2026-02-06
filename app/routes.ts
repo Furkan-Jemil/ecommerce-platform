@@ -8,6 +8,7 @@ export default [
     // Product Routes
     route("products", "routes/products/_index.tsx"),
     route("products/:productId", "routes/products/$productId.tsx"),
+    route("cart", "routes/cart.tsx"),
 
     // Protected Routes
     layout("components/layout/ProtectedRoute.tsx", [
