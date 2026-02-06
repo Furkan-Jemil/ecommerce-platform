@@ -25,5 +25,11 @@ export const ProtectedRoute = ({ adminOnly = false }: ProtectedRouteProps) => {
         return <Navigate to="/" replace />;
     }
 
+    // Extra safety: if path starts with /admin, ensure admin role
+    if (location.pathname.startsWith("/admin") && user.role !== "ADMIN") {
+        return <Navigate to="/" replace />;
+    }
+
+
     return <Outlet />;
 };

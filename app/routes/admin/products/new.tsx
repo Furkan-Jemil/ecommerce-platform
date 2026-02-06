@@ -2,7 +2,7 @@ import { useNavigate } from "react-router";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { apiClient } from "../../lib/api/client";
+import { apiClient } from "../../../lib/api/client";
 import { useState } from "react";
 import { Camera, Save, X, Loader2 } from "lucide-react";
 

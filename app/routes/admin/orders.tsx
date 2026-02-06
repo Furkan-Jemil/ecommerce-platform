@@ -62,7 +62,7 @@ export default function AdminOrders() {
                                     <td colSpan={6} className="px-6 py-4"><div className="h-8 bg-muted rounded mb-2"></div></td>
                                 </tr>
                             ))
-                        ) : filteredOrders.map((order) => (
+                        ) : filteredOrders.map((order: Order) => (
                             <tr key={order.id} className="hover:bg-muted/30 transition-colors">
                                 <td className="px-6 py-4 font-mono font-bold text-xs uppercase">#{order.id.slice(-8)}</td>
                                 <td className="px-6 py-4 text-xs text-muted-foreground">{new Date(order.createdAt).toLocaleDateString()}</td>
@@ -73,9 +73,9 @@ export default function AdminOrders() {
                                         value={order.status}
                                         onChange={(e) => updateStatusMutation.mutate({ id: order.id, status: e.target.value })}
                                         className={`rounded-full px-3 py-1 text-[10px] font-bold uppercase border-0 focus:ring-2 focus:ring-primary ${order.status === "DELIVERED" ? "bg-green-100 text-green-700" :
-                                                order.status === "PENDING" ? "bg-yellow-100 text-yellow-700" :
-                                                    order.status === "CANCELLED" ? "bg-red-100 text-red-700" :
-                                                        "bg-blue-100 text-blue-700"
+                                            order.status === "PENDING" ? "bg-yellow-100 text-yellow-700" :
+                                                order.status === "CANCELLED" ? "bg-red-100 text-red-700" :
+                                                    "bg-blue-100 text-blue-700"
                                             }`}
                                     >
                                         <option value="PENDING">Pending</option>
