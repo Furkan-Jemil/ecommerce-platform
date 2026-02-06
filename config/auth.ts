@@ -8,9 +8,16 @@ export const auth = betterAuth({
         provider: "pg",
         schema: {
             user: schema.users,
-        }
+        },
+        useCamelCase: true
     }),
     emailAndPassword: {
         enabled: true
+    },
+    user: {
+        fields: {
+            role: "role"
+        }
     }
 });
+
