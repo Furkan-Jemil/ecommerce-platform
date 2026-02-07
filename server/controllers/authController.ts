@@ -7,7 +7,7 @@ export const authController = {
   // BetterAuth handles most of this via its own handler, 
   // but we can wrap it or add custom logic if needed.
   // For now, let's expose the BetterAuth handler for Express.
-  
+
   handleAuth: async (req: Request, res: Response) => {
     return await auth.handler(req);
   },

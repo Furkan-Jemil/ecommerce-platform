@@ -1,10 +1,9 @@
-import express, { Request, Response, NextFunction } from "express";
+import "dotenv/config";
+import express from "express";
+import type { Request, Response, NextFunction } from "express";
 import cors from "cors";
-import dotenv from "dotenv";
 import { auth } from "../config/auth";
 import { toNodeHandler } from "better-auth/node";
-
-dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -17,7 +16,7 @@ app.use(cors({
 app.use(express.json());
 
 // BetterAuth Handler
-app.all("/api/auth/*", toNodeHandler(auth));
+app.all("/api/auth/*path", toNodeHandler(auth));
 
 // Health Check
 app.get("/api/health", (req: Request, res: Response) => {
