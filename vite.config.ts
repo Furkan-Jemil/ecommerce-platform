@@ -2,8 +2,8 @@ import { reactRouter } from "@react-router/dev/vite";
 import tailwindcss from "@tailwindcss/vite";
 import { defineConfig } from "vite";
 import tsconfigPaths from "vite-tsconfig-paths";
-import { vercelPreset } from "@vercel/vite";
+import { vercelPlugin } from "@vercel/vite-plugin";
 
 export default defineConfig({
-  plugins: [tailwindcss(), reactRouter(), tsconfigPaths(), vercelPreset()],
+  plugins: [tailwindcss(), reactRouter(), tsconfigPaths(), vercelPlugin()],
 });
