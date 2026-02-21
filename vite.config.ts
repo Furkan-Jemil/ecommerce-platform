@@ -9,6 +9,6 @@ export default defineConfig({
     tailwindcss(),
     reactRouter(),
     tsconfigPaths(),
-    vercelPreset(), // Added Vercel React Router preset
+    vercelPreset(), // Ensure Vercel React Router preset is added
   ],
 });
