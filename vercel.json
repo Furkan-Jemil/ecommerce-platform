@@ -1,3 +1,5 @@
 {
-  "ignore": ["server/**", "db/**", "scripts/**"]
+  // Vercel no longer supports an "ignore" property in project config.
+  // Files such as server/, db/, and scripts/ can be omitted via .vercelignore
+  // if you need to exclude them from deployments.
 }
