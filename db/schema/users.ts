@@ -1,4 +1,4 @@
-import { pgTable, uuid, varchar, timestamp, pgEnum, boolean, text } from "drizzle-orm/pg-core";
+import { pgTable, uuid, varchar, timestamp, pgEnum, boolean, text, sql } from "drizzle-orm/pg-core";
 
 export const userRoleEnum = pgEnum("user_role", ["USER", "ADMIN"]);
 
@@ -26,7 +26,9 @@ export const sessions = pgTable("sessions", {
 });
 
 export const accounts = pgTable("accounts", {
-    id: text("id").primaryKey(),
+    // keep text type but default to random UUID so database generates a value when
+    // the adapter forgets to provide one (e.g. during sign-up flows)
+    id: text("id").primaryKey().default(sql`gen_random_uuid()`),
     accountId: text("account_id").notNull(),
     providerId: text("provider_id").notNull(),
     userId: uuid("user_id").notNull().references(() => users.id, { onDelete: 'cascade' }),
